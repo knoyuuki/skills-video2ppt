@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 工具运行时产物
+integrated_tool_v4_config.json
+frames/
+video2ppt_output/
+*.pptx
+*.pdf
+
+# 系统文件
+.DS_Store
+Thumbs.db

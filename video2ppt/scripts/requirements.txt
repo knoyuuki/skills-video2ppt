@@ -1,0 +1,7 @@
+# video2ppt 依赖（Python >= 3.9）
+opencv-python>=4.8
+numpy>=1.24
+scikit-image>=0.21     # 推荐：SSIM 画面去重；缺失时自动回退像素差值算法
+python-pptx>=0.6.23
+Pillow>=10.0
+img2pdf>=0.5           # 可选：PDF 流式合并（缺失时自动回退 Pillow 逐页写入）
