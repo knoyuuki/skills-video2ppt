@@ -13,7 +13,7 @@
 | 参数 | 默认值 | 说明 |
 | --- | --- | --- |
 | `-i, --input` | 必填 | 视频文件、目录或通配符，可多个 |
-| `-o, --output` | `frames` | 帧输出目录 |
+| `-o, --output` | 视频所在目录/`frames` | 帧输出目录；省略时放在第一个视频旁边 |
 | `--similarity` | `0.8` | 相似度阈值 0–1。相似度**低于**该值判定为画面切换。值越低越不敏感（页更少），越高越敏感（页更多） |
 | `--min-interval` | `5` | 两次保存之间的最小帧号差 |
 | `--delay-frames` | `5` | 检测到切换后延迟的帧数，用于跳过转场动画 |
@@ -91,7 +91,7 @@ JSON 字段：`status`、`output`、`images_found`、`pages`、`size_bytes`、`c
 | 参数 | 默认值 | 说明 |
 | --- | --- | --- |
 | `-i, --input` | 必填 | 视频文件、目录或通配符 |
-| `-o, --outdir` | `video2ppt_output` | 输出目录 |
+| `-o, --outdir` | 第一个视频所在目录 | 输出目录；省略时与视频放在一起 |
 | `--name` | 首个视频名 | 输出文件基名 |
 | `--formats` | `pptx,pdf` | 逗号分隔；留空则只抽帧 |
 | 抽帧参数 | — | `--similarity`、`--min-interval`、`--delay-frames`、`--no-stable-check`、`--stable-threshold`、`--skip`、`--resize`、`--start`、`--end`、`--crop`、`--crop-mode`、`--black-threshold`、`--frame-format`、`--quality`（含义同 `video_to_frames.py`） |

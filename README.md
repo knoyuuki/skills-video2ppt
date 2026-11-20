@@ -38,6 +38,7 @@ python scripts/video2ppt.py -i lecture.mp4 -o ./out --formats pptx,pdf --json
 ```
 
 产物：`out/frames/`、`out/lecture.pptx`、`out/lecture.pdf`。
+省略 `-o` 时输出到视频所在目录（如 `video/lecture.mp4` → `video/frames/`、`video/lecture.pptx`、`video/lecture.pdf`）。
 
 单独能力：
 

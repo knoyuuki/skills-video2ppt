@@ -31,8 +31,10 @@ python scripts/check_env.py
 ## 1. 一键流水线（推荐入口）
 
 ```bash
-python scripts/video2ppt.py -i <视频文件/目录/通配符> -o <输出目录> --formats pptx,pdf --json
+python scripts/video2ppt.py -i <视频文件/目录/通配符> [-o <输出目录>] --formats pptx,pdf --json
 ```
+
+`-o` 可省略：默认输出到**第一个视频所在目录**（不与 Skill 根目录混在一起）。
 
 示例：
 
@@ -48,16 +50,17 @@ python scripts/video2ppt.py -i ./videos -o ./out --formats pptx
 ```
 
 产物：`<outdir>/frames/`（提取的画面）、`<outdir>/<name>.pptx`、`<outdir>/<name>.pdf`。
-`--name` 可指定输出文件基名，默认取第一个视频的文件名。
+`--name` 可指定输出文件基名，默认取第一个视频的文件名。例如 `video/2_1.mp4` 省略 `-o` 时输出到 `video/frames/`、`video/2_1.pptx`、`video/2_1.pdf`。
 
 ## 2. 分步执行
 
 ### 2.1 视频抽帧
 
 ```bash
-python scripts/video_to_frames.py -i <视频/目录> -o <帧目录> [参数] --json
+python scripts/video_to_frames.py -i <视频/目录> [-o <帧目录>] [参数] --json
 ```
 
+- `-o` 可省略，默认输出到第一个视频所在目录下的 `frames/`。
 - 关键参数：`--start` / `--end`（秒或 `HH:MM:SS`）、`--similarity`（默认 0.8）、`--skip`（默认 15）、`--crop all`（去除黑边）。
 - 输出文件名形如 `<视频名>_ppt_001_frame_000123.png`，按页码自然排序。
 

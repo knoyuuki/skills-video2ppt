@@ -482,7 +482,8 @@ def build_parser():
     )
     p.add_argument("-i", "--input", nargs="+", required=True,
                    help="视频文件、目录或通配符（可多个）")
-    p.add_argument("-o", "--output", default="frames", help="输出目录")
+    p.add_argument("-o", "--output", default=None,
+                   help="输出目录（默认：第一个视频所在目录下的 frames/）")
 
     g = p.add_argument_group("识别参数")
     g.add_argument("--similarity", type=float, default=0.8,
@@ -570,6 +571,12 @@ def main(argv=None):
         print("未找到任何视频文件。", file=sys.stderr)
         return 1
 
+    # 默认输出到视频所在目录，而不是当前工作目录（Skill 根目录）
+    if args.output:
+        output_dir = Path(args.output).resolve()
+    else:
+        output_dir = Path(inputs[0]).resolve().parent / "frames"
+
     log = make_logger(args.quiet)
     progress = ThrottledProgress(enabled=not args.quiet, prefix="进度")
 
@@ -580,7 +587,7 @@ def main(argv=None):
 
     config = {
         "input": inputs,
-        "output": args.output,
+        "output": str(output_dir),
         "similarity": args.similarity,
         "min_interval": args.min_interval,
         "delay_frames": args.delay_frames,
@@ -611,7 +618,7 @@ def main(argv=None):
 
     summary = {
         "status": "ok" if count > 0 else "empty",
-        "output_dir": str(Path(args.output).absolute()),
+        "output_dir": str(output_dir),
         "videos": len(inputs),
         "frames_saved": count,
         "frame_format": args.frame_format,

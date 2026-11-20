@@ -29,8 +29,8 @@ def build_parser():
     )
     p.add_argument("-i", "--input", nargs="+", required=True,
                    help="视频文件、目录或通配符（可多个）")
-    p.add_argument("-o", "--outdir", default="video2ppt_output",
-                   help="输出目录（帧保存在其 frames/ 子目录）")
+    p.add_argument("-o", "--outdir", default=None,
+                   help="输出目录（默认：第一个视频所在目录；帧保存在其 frames/ 子目录）")
     p.add_argument("--name", default=None,
                    help="输出文件基名（默认取第一个视频的文件名）")
     p.add_argument("--formats", default="pptx,pdf",
@@ -146,7 +146,8 @@ def main(argv=None):
             int(current / total * 100) if total else 0)
         progress(pct, f"{video_name} {current:,}/{total:,} 帧")
 
-    outdir = Path(args.outdir).absolute()
+    # 默认输出到视频所在目录，而不是当前工作目录（Skill 根目录）
+    outdir = Path(args.outdir).resolve() if args.outdir else Path(inputs[0]).resolve().parent
     frames_dir = outdir / "frames"
     base_name = args.name or Path(inputs[0]).stem
     # 去掉文件名中可能影响路径的字符
