@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 from _common import (ThrottledProgress, make_logger, parse_crop, parse_rgb,
-                     parse_time, setup_utf8_stdio)
+                     parse_time, setup_runtime)
 from images_to_pdf import images_to_pdf
 from images_to_pptx import images_to_pptx
 from video_to_frames import (VideoFrameExtractor, dependency_errors,
@@ -96,7 +96,7 @@ def build_parser():
 
 
 def main(argv=None):
-    setup_utf8_stdio()
+    setup_runtime()
     parser = build_parser()
     args = parser.parse_args(argv)
 

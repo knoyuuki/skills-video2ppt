@@ -11,7 +11,7 @@ import os
 import sys
 
 from _common import (ThrottledProgress, collect_images, make_logger,
-                     parse_rgb, setup_utf8_stdio)
+                     parse_rgb, setup_runtime)
 
 try:
     from pptx import Presentation
@@ -176,7 +176,7 @@ def build_parser():
 
 
 def main(argv=None):
-    setup_utf8_stdio()
+    setup_runtime()
     parser = build_parser()
     args = parser.parse_args(argv)
 

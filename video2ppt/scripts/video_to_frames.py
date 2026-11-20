@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 
 from _common import (ThrottledProgress, make_logger, parse_crop, parse_time,
-                     setup_utf8_stdio)
+                     setup_runtime)
 
 VIDEO_EXTENSIONS = {".mp4", ".avi", ".mov", ".mkv", ".wmv", ".flv",
                     ".webm", ".m4v", ".ts", ".mpg", ".mpeg"}
@@ -532,7 +532,7 @@ def build_parser():
 
 
 def main(argv=None):
-    setup_utf8_stdio()
+    setup_runtime()
     parser = build_parser()
     args = parser.parse_args(argv)
 

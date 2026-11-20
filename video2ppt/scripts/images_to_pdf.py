@@ -16,8 +16,8 @@ import json
 import os
 import sys
 
-from _common import (IMAGE_EXTENSIONS, ThrottledProgress, collect_images,
-                     human_size, make_logger, setup_utf8_stdio)
+from _common import (ThrottledProgress, collect_images, human_size,
+                     make_logger, setup_runtime)
 
 try:
     from PIL import Image
@@ -225,7 +225,7 @@ def build_parser():
 
 
 def main(argv=None):
-    setup_utf8_stdio()
+    setup_runtime()
     parser = build_parser()
     args = parser.parse_args(argv)
 

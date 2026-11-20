@@ -18,6 +18,23 @@ def setup_utf8_stdio():
             pass
 
 
+def configure_thread_env():
+    """为部分 Windows 环境下不稳定的 OpenBLAS/OpenMP 设置保守线程数。
+
+    某些机器上 OpenBLAS 默认按 CPU 核数分配线程缓冲会直接失败
+    （Memory allocation still failed），导致 import numpy/cv2 即崩溃。
+    仅在用户未显式设置时降为 1 线程；可通过环境变量覆盖。
+    """
+    os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+    os.environ.setdefault("OMP_NUM_THREADS", "1")
+
+
+def setup_runtime():
+    """所有入口统一初始化：线程环境 + UTF-8 输出。"""
+    configure_thread_env()
+    setup_utf8_stdio()
+
+
 def natural_key(path):
     """自然排序键：page_2 < page_10，而非字典序 page_10 < page_2。"""
     return [int(t) if t.isdigit() else t.lower()

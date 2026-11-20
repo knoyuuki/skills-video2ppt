@@ -13,7 +13,7 @@ import subprocess
 import sys
 from importlib import metadata
 
-from _common import setup_utf8_stdio
+from _common import setup_runtime
 
 PACKAGES = [
     ("cv2", "opencv-python", True, "视频解码、抽帧、图像编码"),
@@ -46,7 +46,7 @@ def probe(module):
 
 
 def main():
-    setup_utf8_stdio()
+    setup_runtime()
     packages = {}
     missing_required = []
     for module, pkg, required, usage in PACKAGES:

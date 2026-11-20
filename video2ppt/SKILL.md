@@ -104,10 +104,12 @@ python scripts/images_to_pdf.py -i <图片目录> -o <输出.pdf> --json
 4. 常见失败：
    - **无法打开视频**：路径含特殊字符或编码不支持。先用 ffmpeg 转码为 H.264 MP4：`ffmpeg -i in.mov -c:v libx264 -c:a aac out.mp4`。
    - **frames_saved = 0**：按第 3 节提高相似度敏感度后重试。
-   - **导入 cv2/numpy 时出现 OpenBLAS / 内存分配错误**：本机 numpy 安装损坏。重建虚拟环境（`python -m venv .venv` 后重装 `requirements.txt`），或 `python -m pip install --force-reinstall numpy opencv-python`。`check_env.py` 与抽帧脚本已用子进程隔离探测，会以退出码 3 报出该问题而不是直接崩溃。
+   - **导入 cv2/numpy 时出现 OpenBLAS / 内存分配错误**：脚本默认已把 `OPENBLAS_NUM_THREADS` / `OMP_NUM_THREADS` 设为 1 来规避常见的线程缓冲分配失败；若仍然报错，重建虚拟环境（`python -m venv .venv` 后重装 `requirements.txt`），或 `python -m pip install --force-reinstall numpy opencv-python`。`check_env.py` 与抽帧脚本已用子进程隔离探测，会以退出码 3 报出该问题而不是直接崩溃。
    - **中文路径/日志乱码**：脚本已强制 UTF-8 输出；若终端仍乱码，先执行 `export PYTHONIOENCODING=utf-8`（Windows: `set PYTHONIOENCODING=utf-8`）。
 5. 不要用 GUI 版参数文件交互；本 Skill 的脚本全部无界面、可重复执行。
 
 ## 5. 环境变量
 
-无必需的环境变量。脚本不包含硬编码的密钥、密码或令牌，也不访问网络（仅首次安装依赖时 pip 需要联网）。
+无必需的环境变量，脚本不包含硬编码的密钥、密码或令牌，也不访问网络（仅首次安装依赖时 pip 需要联网）。
+
+可选：`OPENBLAS_NUM_THREADS`、`OMP_NUM_THREADS` —— 脚本会将其默认设为 `1`，避免部分 Windows 机器上 OpenBLAS 线程缓冲分配失败导致 `import numpy/cv2` 崩溃；机器正常时可按需调大（如 `8`）。
