@@ -4,6 +4,9 @@ __pycache__/
 .venv/
 venv/
 
+# 本地测试视频（体积大，不提交）
+video/
+
 # 工具运行时产物
 integrated_tool_v4_config.json
 frames/
